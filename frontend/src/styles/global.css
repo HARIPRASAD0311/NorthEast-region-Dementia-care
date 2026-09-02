@@ -1,0 +1,377 @@
+:root {
+  /* ── Original design tokens (preserved) ─────────────────────── */
+  --ink: #26332c;
+  --pine: #2c4a3e;
+  --pine-dark: #1c302a;
+  --pine-light: #e4ebe6;
+  --gold: #b8862f;
+  --gold-light: #f3e4c8;
+  --clay: #9a4a32;
+  --clay-light: #f6e3dc;
+  --paper: #f5f3ec;
+  --paper-deep: #ede9dc;
+  --line: #d9d3c1;
+  --muted: #6b6355;
+  --white: #ffffff;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --shadow: 0 2px 10px rgba(28, 48, 42, 0.06);
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* ── Green / Gold theme tokens (Home · Activities · Progress · Daily Care) */
+  --fg: #0e3524;          /* deepest forest green – card backgrounds            */
+  --fg-mid: #1a4d35;      /* medium forest green – secondary surfaces           */
+  --fg-soft: #255c41;     /* softer green – hover / elevated cards              */
+  --fg-border: rgba(199,168,90,0.28); /* subtle gold border                    */
+  --fg-overlay: rgba(14,53,36,0.55);  /* dark green overlay for progress bars  */
+  --ga: #c7a85a;          /* warm gold – icons, highlights, active states       */
+  --ga-light: #d8c47a;    /* light gold – secondary accents                     */
+  --ga-dim: rgba(199,168,90,0.15);    /* very soft gold tint                   */
+  --cream: #f5f0e5;       /* warm cream – primary text on dark cards            */
+  --cream-dim: rgba(245,240,229,0.7); /* secondary text on dark cards          */
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+/* ── Global cultural background ────────────────────────────────── */
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.5;
+
+  /* Northeast India cultural illustration as full-page background */
+  background-color: #eae5d8;
+  background-image:
+    /* warm translucent wash so text on cards stays readable */
+    linear-gradient(
+      rgba(245, 243, 236, 0.72),
+      rgba(245, 243, 236, 0.72)
+    ),
+    url("/img.jpeg");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+h1, h2, h3 { font-family: var(--font-display); margin: 0; color: var(--ink); }
+p { margin: 0; }
+
+button { font-family: inherit; cursor: pointer; }
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* Reserve space so content never hides behind the bottom nav */
+  padding-bottom: 76px;
+}
+
+.page-content {
+  padding: 24px 18px 16px;
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ── Bottom Navigation ──────────────────────────────────────────── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  background: rgba(255, 255, 255, 0.96);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -2px 12px rgba(28, 48, 42, 0.08);
+  height: 72px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.bottom-nav a {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 4px;
+  border-top: 3px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  min-height: 56px;
+  /* Large touch target */
+}
+
+.bottom-nav a:hover { color: var(--pine); }
+
+.bottom-nav a.active {
+  color: var(--pine);
+  border-top-color: var(--pine);
+}
+
+.bottom-nav a span {
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* ── Progress bar (shared across game screens) ─────────────────── */
+.progress-bar-track {
+  background: var(--line);
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  background: var(--pine);
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+/* ── Icon button ───────────────────────────────────────────────── */
+.icon-btn {
+  width: 40px; height: 40px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+}
+.icon-btn.active { background: var(--pine); color: var(--paper); }
+
+.card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 14px rgba(28, 48, 42, 0.09);
+  padding: 22px;
+}
+
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  padding: 14px 22px;
+  font-weight: 600;
+  font-size: 16px;
+  border: 2px solid transparent;
+  transition: transform 0.1s ease, opacity 0.15s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--pine); color: var(--paper); }
+.btn-primary:hover { opacity: 0.92; }
+.btn-secondary { background: var(--white); color: var(--ink); border-color: var(--line); }
+.btn-secondary:hover { border-color: var(--pine); }
+.btn-gold { background: var(--gold); color: var(--white); }
+.btn-block { width: 100%; }
+.btn-lg { padding: 16px 26px; font-size: 18px; }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.pill-pine { background: var(--pine-light); color: var(--pine-dark); }
+.pill-gold { background: var(--gold-light); color: #7a5a1f; }
+.pill-clay { background: var(--clay-light); color: var(--clay); }
+
+.disclaimer {
+  font-size: 14.5px;
+  color: var(--muted);
+  background: var(--paper-deep);
+  border-radius: 10px;
+  padding: 14px 16px;
+  line-height: 1.5;
+}
+
+.section-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.section-subtitle { color: var(--muted); font-size: 16px; margin-bottom: 18px; }
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--pine);
+  color: var(--paper);
+  padding: 10px 16px;
+  border-radius: 8px;
+  z-index: 100;
+}
+.skip-link:focus { left: 12px; top: 12px; }
+
+::selection { background: var(--gold-light); }
+
+/* ═══════════════════════════════════════════════════════════════
+   GREEN / GOLD THEME — Home · Activities · Progress · Daily Care
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Dark green card used across the four themed pages */
+.g-card {
+  background: rgba(14, 53, 36, 0.82);
+  border: 1px solid var(--fg-border);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 18px rgba(8, 28, 18, 0.22);
+  padding: 22px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--cream);
+}
+
+/* Slightly lighter green for nested / secondary panels */
+.g-card-mid {
+  background: rgba(26, 77, 53, 0.72);
+  border: 1px solid var(--fg-border);
+  border-radius: calc(var(--radius) - 2px);
+  padding: 14px 16px;
+}
+
+/* Gold section heading label */
+.g-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ga);
+}
+
+/* Gold divider line */
+.g-divider {
+  border: none;
+  border-top: 1px solid var(--fg-border);
+  margin: 12px 0;
+}
+
+/* Page heading on themed pages */
+.g-page-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--cream);
+  margin: 0 0 4px;
+}
+.g-page-sub {
+  font-size: 14px;
+  color: var(--cream-dim);
+  margin: 0;
+}
+
+/* Primary CTA button — gold on themed pages */
+.btn-theme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  padding: 14px 22px;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  background: var(--ga);
+  color: var(--fg);
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+.btn-theme:hover { opacity: 0.9; }
+.btn-theme:active { transform: scale(0.98); }
+.btn-theme-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-weight: 600;
+  font-size: 15px;
+  border: 1.5px solid var(--fg-border);
+  cursor: pointer;
+  background: rgba(14,53,36,0.4);
+  color: var(--cream);
+  transition: background 0.15s ease;
+}
+.btn-theme-outline:hover { background: rgba(14,53,36,0.65); }
+
+/* Themed bottom nav — dark green + gold active */
+.bottom-nav--themed {
+  background: rgba(10, 40, 26, 0.94) !important;
+  border-top: 1px solid var(--fg-border) !important;
+}
+.bottom-nav--themed a {
+  color: var(--cream-dim) !important;
+  border-top-color: transparent !important;
+}
+.bottom-nav--themed a:hover { color: var(--ga-light) !important; }
+.bottom-nav--themed a.active {
+  color: var(--ga) !important;
+  border-top-color: var(--ga) !important;
+}
+
+/* Progress bar in gold */
+.g-progress-track {
+  background: rgba(199,168,90,0.18);
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+}
+.g-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--ga), var(--ga-light));
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+
+/* Icon badge on dark cards */
+.g-icon-badge {
+  width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: 12px;
+  background: var(--ga-dim);
+  border: 1px solid var(--fg-border);
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Pill on dark background */
+.g-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--ga-dim);
+  color: var(--ga-light);
+  border: 1px solid var(--fg-border);
+}
+
+/* Timeline dot in gold */
+.g-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--ga);
+  flex-shrink: 0;
+  margin-top: 8px;
+}

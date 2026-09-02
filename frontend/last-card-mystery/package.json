@@ -1,0 +1,14 @@
+{
+  "name": "last-card-mystery",
+  "version": "1.0.0",
+  "description": "Last Card Mystery - Elder-friendly cultural memory game (Human vs AI)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

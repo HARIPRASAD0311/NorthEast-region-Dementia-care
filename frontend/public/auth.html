@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Cognitive Care Companion</title>
+  <meta name="description"
+    content="Register or sign in to Smriti, an adaptive cognitive-care companion for elderly users across Northeast India.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/auth.css">
+</head>
+
+<body>
+
+  <!-- Background photograph of a misty Northeast India valley -->
+  <div class="bg-photo" role="img" aria-label="Misty green valley and hillside village in Northeast India"></div>
+  <div class="bg-overlay" aria-hidden="true"></div>
+
+  <div class="app-shell">
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="30" height="30" fill="none">
+            <path d="M24 4 C 33 4 42 12 42 24 C 42 34 34 42 24 44 C 14 42 6 34 6 24 C 6 12 15 4 24 4 Z"
+              stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+            <path d="M24 14 v10 l7 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">Smriti</span>
+          <span class="brand-tagline">Cognitive Care Companion</span>
+        </span>
+      </div>
+      <button type="button" class="icon-btn voice-btn" id="voiceToggleBtn" aria-pressed="false"
+        aria-label="Turn on voice guidance">
+        <svg class="icon-speaker-on" viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
+          <path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" />
+          <path d="M16.5 8.5a5 5 0 0 1 0 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M19 6a9 9 0 0 1 0 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            opacity="0.6" />
+        </svg>
+        <svg class="icon-speaker-off" viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true"
+          style="display:none;">
+          <path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" />
+          <path d="M15 9l5 6M20 9l-5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+    </header>
+
+    <main class="auth-wrap">
+      <div class="auth-card" id="authCard">
+
+        <div class="tabs" role="tablist" aria-label="Account access">
+          <button class="tab" id="tabRegisterBtn" role="tab" aria-selected="true" aria-controls="registerPanel"
+            type="button" data-i18n="registerTab">Register</button>
+          <button class="tab" id="tabSigninBtn" role="tab" aria-selected="false" aria-controls="signinPanel"
+            type="button" data-i18n="signinTab">Sign In</button>
+          <span class="tab-indicator" id="tabIndicator" aria-hidden="true"></span>
+        </div>
+
+        <!-- ===================== REGISTER PANEL ===================== -->
+        <section class="panel active" id="registerPanel" role="tabpanel" aria-labelledby="tabRegisterBtn">
+
+          <div class="panel-head">
+            <h1 data-i18n="createAccountTitle">Create Your Account</h1>
+            <p data-i18n="createAccountSubtitle">Let's set up your profile for a personalized cognitive-care experience.
+            </p>
+            <div class="progress" aria-hidden="true">
+              <span class="progress-step active" id="progressStep1">1</span>
+              <span class="progress-line" id="progressLine"></span>
+              <span class="progress-step" id="progressStep2">2</span>
+            </div>
+            <p class="progress-label" id="progressLabel" data-i18n="stepLabel">Step 1 of 2</p>
+          </div>
+
+          <form id="registerForm" novalidate>
+
+            <!-- STEP 1 -->
+            <div class="form-step active" data-step="1" id="formStep1">
+
+              <div class="field-group">
+                <h2 class="section-title" data-i18n="personalInfo">Personal Information</h2>
+                <div class="grid-2">
+                  <div class="field">
+                    <label for="fullName" data-i18n="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="Enter your full name" autocomplete="name"
+                      data-i18n-placeholder="fullNamePlaceholder">
+                    <span class="field-error" id="err-fullName" role="alert"></span>
+                  </div>
+                  <div class="field">
+                    <label for="age" data-i18n="age">Age</label>
+                    <input type="number" id="age" placeholder="Enter your age" min="1" max="120" inputmode="numeric"
+                      data-i18n-placeholder="agePlaceholder">
+                    <span class="field-error" id="err-age" role="alert"></span>
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="field">
+                    <label for="language" data-i18n="language">Preferred Language</label>
+                    <select id="language">
+                      <option value="">Select language</option>
+                      <option>English</option>
+                      <option>Assamese</option>
+                      <option>Bengali</option>
+                      <option>Khasi</option>
+                      <option>Mizo</option>
+                      <option>Manipuri</option>
+                      <option>Nagamese</option>
+                      <option>Other</option>
+                    </select>
+                    <span class="field-error" id="err-language" role="alert"></span>
+                  </div>
+                  <div class="field">
+                    <label for="stateRegion" data-i18n="stateRegion">State / Region</label>
+                    <select id="stateRegion">
+                      <option value="">Select state</option>
+                      <option>Assam</option>
+                      <option>Arunachal Pradesh</option>
+                      <option>Manipur</option>
+                      <option>Meghalaya</option>
+                      <option>Mizoram</option>
+                      <option>Nagaland</option>
+                      <option>Sikkim</option>
+                      <option>Tripura</option>
+                    </select>
+                    <span class="field-error" id="err-stateRegion" role="alert"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <h2 class="section-title" data-i18n="accessibility">Accessibility Preferences</h2>
+
+                <div class="toggle-row">
+                  <div class="toggle-text">
+                    <span class="toggle-label" data-i18n="voiceAssist">Voice Assistance</span>
+                    <span class="toggle-desc" data-i18n="voiceAssistDesc">Enable voice guidance</span>
+                  </div>
+                  <button type="button" class="switch" id="toggleVoiceAssist" role="switch" aria-checked="false"
+                    aria-label="Enable voice guidance">
+                    <span class="switch-knob"></span>
+                  </button>
+                </div>
+
+                <div class="toggle-row">
+                  <div class="toggle-text">
+                    <span class="toggle-label" data-i18n="largeText">Large Text</span>
+                    <span class="toggle-desc" data-i18n="largeTextDesc">Use larger text throughout the
+                      application</span>
+                  </div>
+                  <button type="button" class="switch" id="toggleLargeText" role="switch" aria-checked="false"
+                    aria-label="Use larger text throughout the application">
+                    <span class="switch-knob"></span>
+                  </button>
+                </div>
+
+                <div class="toggle-row">
+                  <div class="toggle-text">
+                    <span class="toggle-label" data-i18n="highContrast">High Contrast</span>
+                    <span class="toggle-desc" data-i18n="highContrastDesc">Improve visual contrast</span>
+                  </div>
+                  <button type="button" class="switch" id="toggleHighContrast" role="switch" aria-checked="false"
+                    aria-label="Improve visual contrast">
+                    <span class="switch-knob"></span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <h2 class="section-title">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true" style="flex-shrink:0">
+                    <circle cx="12" cy="9" r="4" stroke="currentColor" stroke-width="1.8" />
+                    <path d="M4.5 20c1.2-3.6 4.2-5.5 7.5-5.5s6.3 1.9 7.5 5.5" stroke="currentColor" stroke-width="1.8"
+                      stroke-linecap="round" />
+                  </svg>
+                  <span data-i18n="faceVerification">Face Verification</span>
+                </h2>
+                <p class="section-sub" data-i18n="faceVerificationSub">Set up face sign-in for easier access to your
+                  account.</p>
+
+                <div class="camera-widget" id="regCamera" data-context="register">
+                  <div class="camera-frame">
+                    <video class="camera-video" id="regVideo" autoplay playsinline muted></video>
+                    <div class="face-guide" id="regFaceGuide"></div>
+                    <img class="captured-photo" id="regCapturedImg" alt="Your captured profile photo">
+                    <div class="camera-status" id="regCameraStatus">
+                      <div class="camera-status-icon" id="regCameraIcon">
+                        <svg viewBox="0 0 24 24" width="34" height="34" fill="none" aria-hidden="true">
+                          <circle cx="12" cy="9" r="4.5" stroke="currentColor" stroke-width="1.8" />
+                          <path d="M4 20c1.4-4 4.8-6 8-6s6.6 2 8 6" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" />
+                        </svg>
+                      </div>
+                      <p class="camera-status-text" id="regCameraText" data-i18n="addYourFace">Add Your Face</p>
+                      <p class="camera-status-sub" id="regCameraSub" data-i18n="useCamera">Use your camera to securely
+                        set up face sign-in.</p>
+                    </div>
+                  </div>
+                  <p class="camera-instruction" id="regCameraInstruction" data-i18n="positionFace">Position your face
+                    inside the oval guide</p>
+                  <div class="camera-actions" id="regCameraActions">
+                    <button type="button" class="btn-primary" id="regOpenCameraBtn" data-i18n="openCamera">Open
+                      Camera</button>
+                    <button type="button" class="link-btn" id="regSkipBtn" data-i18n="skipForNow">Skip for now</button>
+                  </div>
+                  <p class="camera-success" id="regPhotoSuccess">
+                    <svg viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true">
+                      <path d="M4 10.5l3.5 3.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
+                    <span data-i18n="faceEnrolled">Face enrolled successfully</span>
+                  </p>
+                </div>
+              </div>
+
+              <button type="button" class="btn-primary btn-block" id="toStep2Btn" data-i18n="next">Next</button>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="form-step" data-step="2" id="formStep2">
+
+              <div class="field-group">
+                <h2 class="section-title"><span data-i18n="caregiverInfo">Caregiver Information</span> <span
+                    class="optional-pill" data-i18n="optional">Optional</span></h2>
+                <p class="section-sub" data-i18n="caregiverInfoSub">A caregiver can help monitor activities, reminders,
+                  and progress.</p>
+                <div class="field">
+                  <label for="caregiverName" data-i18n="caregiverName">Caregiver Name</label>
+                  <input type="text" id="caregiverName" placeholder="Enter caregiver's name" autocomplete="off"
+                    data-i18n-placeholder="caregiverNamePlaceholder">
+                </div>
+                <div class="grid-2">
+                  <div class="field">
+                    <label for="relationship" data-i18n="relationship">Relationship</label>
+                    <select id="relationship">
+                      <option value="">Select relationship</option>
+                      <option>Son / Daughter</option>
+                      <option>Spouse</option>
+                      <option>Relative</option>
+                      <option>Professional Caregiver</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="caregiverPhone" data-i18n="caregiverPhone">Caregiver Phone Number</label>
+                    <input type="tel" id="caregiverPhone" placeholder="Enter phone number" autocomplete="off"
+                      data-i18n-placeholder="caregiverPhonePlaceholder">
+                    <span class="field-error" id="err-caregiverPhone" role="alert"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="step-actions">
+                <button type="button" class="btn-secondary" id="backToStep1Btn" data-i18n="back">Back</button>
+                <button type="submit" class="btn-primary" id="createAccountBtn" data-i18n="createAccount">Create
+                  Account</button>
+              </div>
+            </div>
+
+          </form>
+
+          <p class="switch-auth"><span data-i18n="alreadyHaveAccount">Already have an account?</span> <button
+              type="button" class="link-btn" id="goToSigninBtn" data-i18n="linkText">Sign In</button></p>
+        </section>
+
+        <!-- ===================== SIGN IN PANEL ===================== -->
+        <section class="panel" id="signinPanel" role="tabpanel" aria-labelledby="tabSigninBtn">
+
+          <div class="panel-head">
+            <h1 data-i18n="welcomeBack">Welcome Back</h1>
+            <p data-i18n="welcomeBackSubtitle">Sign in to continue your personalized cognitive-care journey.</p>
+          </div>
+
+          <div class="field-group">
+            <h2 class="section-title" data-i18n="quickSignIn">Quick Sign In</h2>
+
+            <div class="camera-widget" id="signinCamera" data-context="signin">
+              <div class="camera-frame">
+                <video class="camera-video" id="signinVideo" autoplay playsinline muted></video>
+                <div class="face-guide" id="signinFaceGuide"></div>
+                <img class="captured-photo" id="signinCapturedImg" alt="Captured photo for sign in">
+                <div class="camera-status" id="signinCameraStatus">
+                  <div class="camera-status-icon" id="signinCameraIcon">
+                    <svg viewBox="0 0 24 24" width="30" height="30" fill="none" aria-hidden="true">
+                      <circle cx="12" cy="9" r="4" stroke="currentColor" stroke-width="1.8" />
+                      <path d="M4.5 20c1.2-3.6 4.2-5.5 7.5-5.5s6.3 1.9 7.5 5.5" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" />
+                    </svg>
+                  </div>
+                  <p class="camera-status-text" id="signinCameraText" data-i18n="lookAtCamera">Look at the camera to
+                    sign in</p>
+                  <p class="camera-status-sub" id="signinCameraSub"></p>
+                </div>
+              </div>
+              <p class="camera-instruction" id="signinCameraInstruction" data-i18n="positionFace">Position your face
+                inside the frame</p>
+              <div class="camera-actions" id="signinCameraActions">
+                <button type="button" class="btn-primary btn-block" id="signinScanBtn" data-i18n="scanFace">Scan My
+                  Face</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"><span data-i18n="or">OR</span></div>
+
+          <div class="field-group">
+            <h2 class="section-title" data-i18n="signInPassword">Sign in with Password</h2>
+            <div class="field">
+              <label for="loginId" data-i18n="emailPhone">Email or Phone Number</label>
+              <input type="text" id="loginId" placeholder="Enter your email or phone number" autocomplete="username"
+                data-i18n-placeholder="emailPhonePlaceholder">
+              <span class="field-error" id="err-loginId" role="alert"></span>
+            </div>
+            <div class="field">
+              <label for="loginPassword" data-i18n="password">Password</label>
+              <div class="password-wrap">
+                <input type="password" id="loginPassword" placeholder="Enter your password"
+                  autocomplete="current-password" data-i18n-placeholder="passwordPlaceholder">
+                <button type="button" class="show-hide-btn" id="togglePasswordBtn" aria-label="Show password"
+                  data-i18n="show">Show</button>
+              </div>
+              <span class="field-error" id="err-loginPassword" role="alert"></span>
+            </div>
+            <div class="login-row">
+              <label class="checkbox-row"><input type="checkbox" id="rememberMe"> <span data-i18n="rememberMe">Remember
+                  me</span></label>
+              <button type="button" class="link-btn" id="forgotPasswordBtn" data-i18n="forgotPassword">Forgot
+                Password?</button>
+            </div>
+            <button type="button" class="btn-primary btn-block" id="signInBtn" data-i18n="signIn">Sign In</button>
+          </div>
+
+          <p class="switch-auth"><span data-i18n="noAccount">Don't have an account?</span> <button type="button"
+              class="link-btn" id="goToRegisterBtn" data-i18n="createAccountLink">Create Account</button></p>
+        </section>
+
+        <!-- ===================== DASHBOARD PLACEHOLDER ===================== -->
+        <section class="panel" id="dashboardPanel" role="tabpanel">
+          <div class="dashboard-placeholder">
+            <div class="success-badge">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true">
+                <path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h1 id="dashboardGreeting" data-i18n="dashboardGreeting">Welcome back!</h1>
+            <p data-i18n="dashboardReady">Your dashboard is ready.</p>
+            <p class="dashboard-note" data-i18n="dashboardNote">Cognitive screening, personalized activities, and
+              progress tracking will appear here next.</p>
+            <button type="button" class="btn-secondary" id="signOutBtn" data-i18n="signOut">Sign Out</button>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <p data-i18n="footerNote">Smriti supports cognitive-care activities and screening. It does not replace
+        professional medical diagnosis or treatment.</p>
+    </footer>
+
+  </div>
+
+  <canvas id="captureCanvas" style="display:none;"></canvas>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="/auth.js"></script>
+</body>
+
+</html>

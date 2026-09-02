@@ -1,0 +1,34 @@
+/* dashboard.css — Component styles for cards, stat display, and shared UI */
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.stat-card .value { font-size: 32px; font-weight: 700; font-family: var(--font-display); }
+.stat-card .label { color: var(--muted); font-size: 15px; }
+.stat-card .trend { font-size: 13.5px; font-weight: 600; }
+.trend-up { color: #2c7a4f; }
+.trend-down { color: var(--clay); }
+
+.loop-track {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+.loop-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--paper-deep);
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.loop-step.current { background: var(--pine); color: var(--paper); }
+.loop-arrow { color: var(--line); }

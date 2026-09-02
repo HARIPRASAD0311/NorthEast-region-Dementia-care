@@ -1,0 +1,1 @@
+"""Smriti FastAPI authentication backend."""
