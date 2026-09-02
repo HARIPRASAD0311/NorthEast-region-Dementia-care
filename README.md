@@ -1,5 +1,7 @@
 # Limbo — AI-Assisted Adaptive Cognitive Care Platform
 
+PROTOTYPE - https://limbo-cognitive-care.vercel.app/auth.html
+
 **An AI-powered, culturally personalized cognitive-care platform for elderly people experiencing dementia-related cognitive difficulties, built for the languages, culture, and connectivity realities of Northeast India.**
 
 Built for Smart India Hackathon 2026 · MDoNER problem statement track
